@@ -1,0 +1,7 @@
+---
+- name: DISA Ansible STIG - RHEL8
+  host: all
+  become: yes
+  become_user: root
+  roles:
+    - { role: rhel8STIG }
