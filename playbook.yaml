@@ -39,7 +39,7 @@
           - 8443
         ports:
           - 8443:8443
-        volumes: /var/local:/usr/local/apache2/htdocs:Z
+        volumes: /var/local:/var/www/html:Z
     - name: Allow port 8080 through the firewall
       firewalld:
         permanent: yes
