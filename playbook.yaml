@@ -32,7 +32,7 @@
     - name: Start the webserver container
       containers.podman.podman_container:
         name: ansibledemo
-        image: httpd
+        image: httpd-24
         state: started
         detach: true
         exposed_ports:
