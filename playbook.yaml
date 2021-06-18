@@ -1,0 +1,54 @@
+---
+- name: Ansible Demo
+  hosts: ansibledemo
+  become: yes
+  become_user: root
+  vars_prompt:
+    - name: web_name
+      prompt: What should we call the homepage?
+      private: no
+  vars:
+    logo_file: ega_flag.jpg
+  tasks:
+    - name: install podman
+      package:
+        name: "podman"
+        state: present
+    - name: Pull the ubi8/httpd-24 container image
+      containers.podman.podman_image:
+        name: registry.redhat.io/ubi8/httpd-24
+        auth_file: ../auth.json
+    - name: Template index.html to the container host
+      template:
+        src: templates/index.html.j2
+        dest: /var/local/index.html
+        mode: 0775
+    - name: Ensures the images dir exists
+      file:
+        path: /var/local/images
+        state: directory
+        seuser: system_u
+    - name: Copy Image file to the container host
+      copy:
+        src: images/{{ logo_file }}
+        dest: /var/local/images/webimg.jpg
+        seuser: system_u
+        setype: container_file_t
+    - name: Start the webserver container
+      containers.podman.podman_container:
+        name: ansibledemo
+        image: httpd
+        state: started
+        detach: true
+        exposed_ports:
+          - 80
+        ports:
+          - 8080:80
+        volumes: /var/local:/usr/local/apache2/htdocs:Z
+    - name: Allow port 8080 through the firewall
+      firewalld:
+        permanent: yes
+        immediate: yes
+        port: 8080/tcp
+        state: enabled
+        zone: public
