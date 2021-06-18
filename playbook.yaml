@@ -3,10 +3,6 @@
   hosts: ansibledemo
   become: yes
   become_user: root
-  vars_prompt:
-    - name: web_name
-      prompt: What should we call the homepage?
-      private: no
   vars:
     logo_file: ega_flag.jpg
   tasks:
@@ -17,7 +13,7 @@
     - name: Pull the ubi8/httpd-24 container image
       containers.podman.podman_image:
         name: registry.redhat.io/ubi8/httpd-24
-        auth_file: ../auth.json
+        auth_file: auth.json
     - name: Template index.html to the container host
       template:
         src: templates/index.html.j2
