@@ -36,14 +36,14 @@
         state: started
         detach: true
         exposed_ports:
-          - 80
+          - 8443
         ports:
-          - 8080:80
+          - 8443:8443
         volumes: /var/local:/usr/local/apache2/htdocs:Z
     - name: Allow port 8080 through the firewall
       firewalld:
         permanent: yes
         immediate: yes
-        port: 8080/tcp
+        port: 8443/tcp
         state: enabled
         zone: trusted
