@@ -46,4 +46,4 @@
         immediate: yes
         port: 8080/tcp
         state: enabled
-        zone: public
+        zone: trusted
