@@ -12,8 +12,7 @@
         state: present
     - name: Pull the ubi8/httpd-24 container image
       containers.podman.podman_image:
-        name: registry.redhat.io/ubi8/httpd-24
-        auth_file: auth.json
+        name: registry.access.redhat.com/ubi8/httpd-24
     - name: Template index.html to the container host
       template:
         src: templates/index.html.j2
