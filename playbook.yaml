@@ -40,7 +40,7 @@
         ports:
           - 8443:8443
         volumes: /var/local:/var/www/html:Z
-    - name: Allow port 8080 through the firewall
+    - name: Allow port 8443 (https) through the firewall
       firewalld:
         permanent: yes
         immediate: yes
