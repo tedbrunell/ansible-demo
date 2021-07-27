@@ -4,7 +4,7 @@
   become: yes
   become_user: root
   vars:
-    logo_file: ega_flag.jpg
+    logo_file: ega_bw.jpg
   tasks:
     - name: install podman
       package:
