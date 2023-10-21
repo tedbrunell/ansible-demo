@@ -1,0 +1,10 @@
+---
+- name: Ansible Test
+  hosts: all
+  become: yes
+  become_user: root
+  tasks:
+    - name: install podman
+      package:
+        name: "podman"
+        state: present
